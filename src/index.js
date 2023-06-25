@@ -1,33 +1,27 @@
-require('dotenv').config();
-const { Client, GatewayIntentBits, messageLink } = require("discord.js");
+require("dotenv").config();
+
+const { Client, GatewayIntentBits, Collection } = require("discord.js");
+const fs = require("fs");
+
+const loadCommands = require("./Loaders/loadCommands");
+const loadEvents = require("./Loaders/loadEvents");
 const keepAlive = require("./web/server");
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildMembers
-    ]
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMembers,
+  ],
 });
 
-client.on("ready", () => {
-    console.log("Bot opérationnel !");
-})
+client.commands = new Collection();
 
-client.on("messageCreate", Message => {
-    if (Message.author.bot) return;
-
-    message = Message.content;
-    console.log(message);
-})
-
-client.on('interactionCreate', (interaction) => {
-    if(!interaction.isChatInputCommand()) return;
-
-    
-})
-
-keepAlive()
+// Pour le serveur web
+keepAlive();
 
 client.login(process.env.TOKEN);
+
+loadCommands(client);
+loadEvents(client);
