@@ -79,8 +79,6 @@ module.exports = {
             .setEmoji("🗑️")
         );
 
-        await channel.send("Explication détailée pour la commande");
-
         await channel.send({ embed: embed, components: [button] });
       }
 
