@@ -1,7 +1,9 @@
-const discord = require("discord.js");
-const loadSlashCommands = require("../Loaders/loadSlashCommands");
+const { Events } = require('discord.js');
 
-module.exports = async (client, message) => {
-  console.log(`${client.user.tag} est opérationnel`);
-  await loadSlashCommands(client);
+module.exports = {
+	name: Events.ClientReady,
+	once: true,
+	execute(client) {
+		console.log(`Ready! Logged in as ${client.user.tag}`);
+	},
 };

@@ -1,5 +1,8 @@
 const Discord = require("discord.js");
 
+
+
+
 module.exports = {
   name: "ban",
   description: "Ban un membre",
